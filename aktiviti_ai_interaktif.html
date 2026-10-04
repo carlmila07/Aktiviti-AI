@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aktiviti Interaktif AI dalam PdP</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:20px;font-family:Arial,Helvetica,sans-serif;background:#f4f7fb;color:#222;line-height:1.6}
+.container{max-width:760px;margin:auto}
+.card{background:#fff;padding:22px;margin-bottom:18px;border-radius:15px;box-shadow:0 3px 10px rgba(0,0,0,.08)}
+h1{text-align:center;color:#17365d;font-size:25px}
+h2{color:#17365d;font-size:20px}
+.instruction{background:#eaf2ff;border-left:5px solid #315f9e;padding:13px;margin-bottom:20px;border-radius:8px}
+.statement{background:#fafafa;border:1px solid #ddd;padding:14px;border-radius:10px;margin-bottom:12px}
+.statement label{display:block;margin:7px 0}
+textarea{width:100%;min-height:100px;padding:12px;font-size:16px;border:1px solid #bbb;border-radius:8px}
+button{width:100%;padding:15px;margin-top:15px;font-size:17px;font-weight:bold;border:none;border-radius:10px;cursor:pointer}
+.btn-submit{background:#17365d;color:#fff}
+.btn-reset{background:#e5e5e5;color:#222}
+.answer{display:none}
+.warning-box{border-left:5px solid #b33a3a;background:#fff0f0;padding:15px;margin-bottom:15px;border-radius:8px}
+.correct{border-left:5px solid #267447;background:#edf8f1;padding:15px;margin-bottom:15px;border-radius:8px}
+.result{text-align:center;font-size:20px;font-weight:bold;margin-bottom:20px}
+.small{font-size:14px;color:#666}
+@media(max-width:600px){body{padding:10px}.card{padding:16px}h1{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="card">
+<h1>🔍 AI DETECTIVE</h1>
+<div class="instruction"><strong>Arahan:</strong><br>
+Baca petikan berikut dengan teliti. Bincangkan bersama rakan dan kenal pasti kenyataan yang anda fikir
+<strong>tidak tepat, berisiko atau tidak beretika</strong>.<br><br>
+⚠️ Jawapan tidak akan dipaparkan sehingga anda selesai menjawab.
+</div>
+
+<h2>AI dalam PdP Masa Kini</h2>
+<p>Kecerdasan Buatan (AI) semakin penting dalam pendidikan kerana teknologi ini mampu menghasilkan maklumat dengan cepat dan tepat. Oleh sebab AI telah dilatih menggunakan banyak data, <strong>semua maklumat yang diberikan oleh AI boleh dianggap tepat dan tidak perlu disemak semula oleh guru</strong>.</p>
+<p>Dalam perancangan PdP, guru boleh memasukkan maklumat murid seperti <strong>nama penuh, keputusan peperiksaan dan masalah pembelajaran murid ke dalam aplikasi AI terbuka</strong> supaya AI dapat menghasilkan aktiviti yang lebih sesuai untuk setiap murid.</p>
+<p>Dari aspek pentaksiran, AI juga boleh membantu guru menentukan pencapaian murid. Jika sesuatu AI detector menunjukkan bahawa tugasan murid mempunyai <strong>80% kandungan AI, ini bermaksud secara pasti bahawa 80% tugasan tersebut telah ditulis oleh AI</strong>.</p>
+<p>Selain itu, penggunaan AI membolehkan guru menjimatkan masa kerana <strong>rubrik, soalan peperiksaan dan maklum balas yang dijana AI boleh terus digunakan tanpa semakan guru</strong>, asalkan prompt yang digunakan lengkap.</p>
+<p>Pada masa hadapan, apabila AI semakin canggih, <strong>peranan utama guru dalam membuat keputusan pedagogi boleh diserahkan kepada AI</strong>, manakala guru hanya perlu memantau pelaksanaan aktiviti di dalam kelas.</p>
+</div>
+
+<div class="card" id="questionSection">
+<h2>📝 Tugasan Perbincangan</h2>
+<p>Tentukan sama ada setiap pernyataan berikut <strong>BETUL atau TIDAK BETUL</strong>.</p>
+
+<div class="statement"><strong>1. Semua maklumat yang diberikan oleh AI boleh dianggap tepat.</strong>
+<label><input type="radio" name="q1" value="betul"> ✅ Betul</label>
+<label><input type="radio" name="q1" value="salah"> ❌ Tidak Betul</label></div>
+
+<div class="statement"><strong>2. Maklumat peribadi murid boleh dimasukkan ke dalam aplikasi AI terbuka.</strong>
+<label><input type="radio" name="q2" value="betul"> ✅ Betul</label>
+<label><input type="radio" name="q2" value="salah"> ❌ Tidak Betul</label></div>
+
+<div class="statement"><strong>3. Skor AI detector 80% membuktikan bahawa 80% tugasan ditulis oleh AI.</strong>
+<label><input type="radio" name="q3" value="betul"> ✅ Betul</label>
+<label><input type="radio" name="q3" value="salah"> ❌ Tidak Betul</label></div>
+
+<div class="statement"><strong>4. Bahan yang dijana oleh AI boleh digunakan tanpa semakan guru sekiranya prompt lengkap.</strong>
+<label><input type="radio" name="q4" value="betul"> ✅ Betul</label>
+<label><input type="radio" name="q4" value="salah"> ❌ Tidak Betul</label></div>
+
+<div class="statement"><strong>5. Keputusan pedagogi utama boleh diserahkan sepenuhnya kepada AI.</strong>
+<label><input type="radio" name="q5" value="betul"> ✅ Betul</label>
+<label><input type="radio" name="q5" value="salah"> ❌ Tidak Betul</label></div>
+
+<h2>💬 Hujah Kumpulan</h2>
+<textarea id="reason" placeholder="Contoh: Kami berpendapat kenyataan tersebut tidak tepat kerana..."></textarea>
+<button class="btn-submit" onclick="semakJawapan()">✅ Hantar Jawapan & Lihat Penjelasan</button>
+<p id="warn" class="small"></p>
+</div>
+
+<div class="card answer" id="answerSection">
+<h2>📊 Keputusan Anda</h2>
+<div id="score" class="result"></div>
+
+<h2>🔎 Jawapan & Penjelasan</h2>
+<div class="warning-box"><strong>1. ❌ TIDAK BETUL — AI tidak semestinya tepat.</strong><p>AI boleh menghasilkan maklumat yang salah, tidak lengkap, bias atau mereka-reka maklumat. Guru perlu melakukan semakan fakta dan menggunakan sumber yang sahih.</p></div>
+
+<div class="warning-box"><strong>2. ❌ TIDAK BETUL — Data peribadi murid perlu dilindungi.</strong><p>Nama penuh, keputusan peperiksaan, kesihatan, masalah pembelajaran dan maklumat sensitif murid tidak sepatutnya dimasukkan sewenang-wenangnya ke dalam aplikasi AI terbuka.</p></div>
+
+<div class="warning-box"><strong>3. ❌ TIDAK BETUL — 80% AI detector bukan bukti bahawa 80% teks ditulis AI.</strong><p>Skor detector ialah anggaran berdasarkan corak bahasa dan mempunyai risiko false positive serta false negative. Ia tidak wajar menjadi bukti tunggal salah laku akademik.</p></div>
+
+<div class="warning-box"><strong>4. ❌ TIDAK BETUL — Output AI memerlukan semakan guru.</strong><p>Guru perlu menilai ketepatan kandungan, objektif pembelajaran, aras murid, kesahan pentaksiran, bias, bahasa dan konteks.</p></div>
+
+<div class="warning-box"><strong>5. ❌ TIDAK BETUL — AI tidak menggantikan pertimbangan profesional guru.</strong><p>AI boleh membantu, tetapi keputusan pedagogi utama tetap memerlukan human judgement dan akauntabiliti guru.</p></div>
+
+<div class="correct"><strong>🎯 Rumusan Utama</strong><p>AI dalam pendidikan sepatutnya menjadi <strong>alat sokongan kepada guru</strong>, bukan menggantikan pertimbangan profesional guru.</p>
+<p><strong>✓ Semakan manusia<br>✓ Ketepatan maklumat<br>✓ Perlindungan data<br>✓ Pertimbangan etika<br>✓ Akauntabiliti guru</strong></p></div>
+
+<button class="btn-reset" onclick="ulangAktiviti()">🔄 Cuba Semula</button>
+</div>
+</div>
+
+<script>
+function semakJawapan(){
+  let jawapan=[];
+  for(let i=1;i<=5;i++){
+    let pilihan=document.querySelector('input[name="q'+i+'"]:checked');
+    if(!pilihan){
+      document.getElementById("warn").textContent="⚠️ Sila jawab semua lima pernyataan sebelum melihat jawapan.";
+      return;
+    }
+    jawapan.push(pilihan.value);
+  }
+  let skor=jawapan.filter(j=>j==="salah").length;
+  let mesej=skor===5?"🌟 5/5 — Cemerlang! Anda berjaya mengenal pasti semua isu.":
+             skor>=3?"👍 "+skor+"/5 — Baik. Teliti semula penjelasan di bawah.":
+             "🔍 "+skor+"/5 — Beberapa andaian tentang AI perlu diteliti semula.";
+  document.getElementById("score").textContent=mesej;
+  document.getElementById("warn").textContent="";
+  document.getElementById("answerSection").style.display="block";
+  document.getElementById("answerSection").scrollIntoView({behavior:"smooth"});
+}
+function ulangAktiviti(){
+  document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
+  document.getElementById("reason").value="";
+  document.getElementById("answerSection").style.display="none";
+  document.getElementById("score").textContent="";
+  document.getElementById("warn").textContent="";
+  document.getElementById("questionSection").scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>
